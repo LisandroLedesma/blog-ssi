@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex w-full">
+    <!-- Sidebar -->
+        <div class="w-1/4 bg-white p-6 border-r border-gray-200 shadow-lg rounded-lg">
+            <!-- Título del menú -->
+            <a href="{{ url_for('index') }}" class="text-2xl font-extrabold text-gray-800 mb-6 block hover:text-blue-600">
+                Mis Entradas
+            </a>
+
+            <!-- Navegación -->
+            <nav class="space-y-2">
+                <!-- Link de Inicio -->
+                <a href="{{ url_for('index') }}"
+                   class="block py-3 px-4 rounded-md text-gray-700 font-medium hover:bg-gray-100 hover:text-blue-600">
+                    Inicio
+                </a>
+
+                <!-- Links dinámicos -->
+                {% for post in posts %}
+                <a href="{{ url_for('post', slug=post.slug) }}"
+                   class="block py-3 px-4 rounded-md text-gray-700 font-medium hover:bg-gray-100 hover:text-blue-600
+                   {% if active_post and active_post.slug == post.slug %}bg-blue-100 text-blue-700{% endif %}">
+                    {{ post.title }}
+                </a>
+                {% endfor %}
+            </nav>
+        </div>
+
+    <!-- Contenido Principal -->
+        <div class="w-3/4 p-6">
+            {% if not active_post %}
+            <div class="bg-white p-10 rounded-lg shadow-lg space-y-6">
+        <h1 class="text-4xl font-extrabold text-gray-800 border-b-4 border-blue-500 pb-2">Informe de Seguridad - SSI</h1>
+        <div class="space-y-4">
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Este blog tiene como objetivo explorar en profundidad el concepto de sistema de seguridad en los sistema de información y sus principales componentes.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                El desarrollo del contenido se llevó a cabo mediante una metodología basada en preguntas clave,
+                utilizadas como hilo conductor para guiar el análisis y la comprensión de los temas.
+                Este enfoque permite presentar los conceptos de manera estructurada, facilitando una comprensión clara y profunda.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                La información presentada en este blog refleja el trabajo colaborativo realizado a lo largo del cursado, consolidando aprendizajes y reflexiones sobre
+                los desafíos y mejores prácticas en el ámbito de la seguridad en sistemas de información.
+            </p>
+        </div>
+            <div class="border-t pt-4">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">Grupo 6</h2>
+                <ul class="space-y-2">
+                    <li class="flex items-center space-x-2">
+                        <span class="text-gray-800 font-medium">Ledesma, Lisandro</span>
+                        <span class="text-gray-500">- 73153</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-gray-800 font-medium">Tirante, Paulina</span>
+                        <span class="text-gray-500">- 83067</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-gray-800 font-medium">Tosini, Leandro</span>
+                        <span class="text-gray-500">- 57740</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% else %}
+            <article class="bg-white p-8 rounded shadow prose prose-lg max-w-none">
+                {{ active_post.content | safe }}
+                <a href="{{ url_for('index') }}"
+                class="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Volver
+                </a>
+            </article>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
