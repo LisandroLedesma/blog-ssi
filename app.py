@@ -1,16 +1,14 @@
 from flask import Flask, render_template, redirect, url_for
 import os
 import markdown
-from dotenv import load_dotenv
 
 from drive_loader import DriveLoader
 
-load_dotenv()
 
 app = Flask(__name__)
 
-
-CREDENTIALS_PATH = os.getenv('CREDENTIALS_PATH')
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+CREDENTIALS_PATH = os.path.join(PROJECT_ROOT, 'config', 'service-account.json')
 drive_loader = DriveLoader(CREDENTIALS_PATH)
 POSTS_FOLDER = 'posts'
 os.makedirs(POSTS_FOLDER, exist_ok=True)
