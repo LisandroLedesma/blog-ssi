@@ -10,3 +10,111 @@
     {% block content %}{% endblock %}
 </body>
 </html>
+
+<style>
+    /* Contenedor general */
+    article {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1rem;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Encabezados */
+    h1, h2, h3, h4, h5, h6 {
+        color: #2c3e50;
+        font-weight: bold;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
+
+    h1 { font-size: 2em; border-bottom: 2px solid #3498db; padding-bottom: 0.3em; }
+    h2 { font-size: 1.75em; border-left: 4px solid #3498db; padding-left: 0.5em; }
+    h3 { font-size: 1.5em; }
+    h4 { font-size: 1.25em; }
+    h5 { font-size: 1.1em; }
+    h6 { font-size: 1em; color: #7f8c8d; }
+
+    /* Párrafos */
+    p {
+        margin-bottom: 1.5em;
+    }
+
+    /* Enlaces */
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Listas */
+    ul, ol {
+        margin: 1em 0;
+        padding-left: 1.5em;
+    }
+    li {
+        margin: 0.5em 0;
+    }
+
+    /* Bloques de código */
+    pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+    }
+    code {
+        background: #f4f4f4;
+        color: #e74c3c;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Citas */
+    blockquote {
+        margin: 1em 0;
+        padding: 1em;
+        background: #ecf0f1;
+        border-left: 4px solid #3498db;
+        font-style: italic;
+        color: #7f8c8d;
+    }
+
+    /* Tablas */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #3498db;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    /* Imágenes */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1em 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
