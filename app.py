@@ -31,7 +31,6 @@ def get_posts():
         if filename.endswith('.md'):
             with open(os.path.join(POSTS_FOLDER, filename), 'r', encoding='utf-8') as f:
                 content = f.read()
-                # Extrae el título y contenido del Markdown
                 title = filename.replace('.md', '').replace('_', ' ').title()
                 posts.append({
                     'title': title,
@@ -53,11 +52,21 @@ def post(slug):
     active_post = next((post for post in posts if post['slug'] == slug), None)
     return render_template('index.html', posts=posts, active_post=active_post)
 
+
 @app.route('/update_posts', methods=['POST'])
 def update_posts():
     """Actualiza las entradas descargando los archivos Markdown del Drive"""
+    for filename in os.listdir(POSTS_FOLDER):
+        file_path = os.path.join(POSTS_FOLDER, filename)
+        try:
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+        except Exception as e:
+            print(f"Error al eliminar el archivo {file_path}: {e}")
+
     drive_loader.download_markdown_files(POSTS_FOLDER)
     return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
