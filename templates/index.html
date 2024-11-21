@@ -21,7 +21,7 @@
                     Inicio
                 </a>
 
-                <!-- Links dinámicos -->
+                <!-- Links dinámicos de posts -->
                 {% for post in posts %}
                 <a href="{{ url_for('post', slug=post.slug) }}"
                    class="block py-3 px-4 rounded-md text-gray-700 font-medium hover:bg-gray-100 hover:text-blue-600
@@ -29,6 +29,22 @@
                     {{ post.title }}
                 </a>
                 {% endfor %}
+
+                <!-- Item Práctico con subelementos -->
+                <div class="space-y-1">
+                    <div class="block py-3 px-4 rounded-md text-gray-700 font-medium hover:bg-gray-100 hover:text-blue-600">
+                        Práctico
+                    </div>
+                    <div class="pl-4">
+                        {% for item in practico %}
+                        <a href="{{ url_for('post', slug=item.slug) }}"
+                           class="block py-3 px-4 rounded-md text-gray-700 font-medium hover:bg-gray-100 hover:text-blue-600
+                           {% if active_post and active_post.slug == item.slug %}bg-blue-100 text-blue-700{% endif %}">
+                            {{ item.title }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
             </nav>
         </div>
 

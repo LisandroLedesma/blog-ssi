@@ -11,25 +11,35 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 CREDENTIALS_PATH = os.path.join(PROJECT_ROOT, 'config', 'service-account.json')
 drive_loader = DriveLoader(CREDENTIALS_PATH)
 POSTS_FOLDER = 'posts'
+PRACTICO_FOLDER = 'practico'
 os.makedirs(POSTS_FOLDER, exist_ok=True)
 drive_loader.download_markdown_files(POSTS_FOLDER)
 
 
 def get_posts():
     """Obtiene todos los posts en formato Markdown"""
+    return load_markdown_files(POSTS_FOLDER)
+
+
+def get_practico():
+    """Obtiene todos los archivos de Práctico en formato Markdown"""
+    return load_markdown_files(PRACTICO_FOLDER)
+
+
+def load_markdown_files(folder):
+    """Carga archivos Markdown desde un directorio específico"""
     posts = []
     extensions = [
-        'tables',  # Tablas
-        'fenced_code',  # Bloques de código con acentos
-        'codehilite',  # Resaltado de sintaxis
-        'nl2br',  # Saltos de línea
-        'sane_lists',  # Listas más precisas
-        'smarty',  # Tipografía inteligente
+        'tables',
+        'fenced_code',
+        'codehilite',
+        'nl2br',
+        'sane_lists',
+        'smarty',
     ]
-
-    for filename in os.listdir(POSTS_FOLDER):
+    for filename in os.listdir(folder):
         if filename.endswith('.md'):
-            with open(os.path.join(POSTS_FOLDER, filename), 'r', encoding='utf-8') as f:
+            with open(os.path.join(folder, filename), 'r', encoding='utf-8') as f:
                 content = f.read()
                 title = filename.replace('.md', '').replace('_', ' ').title()
                 posts.append({
@@ -42,15 +52,18 @@ def get_posts():
 
 @app.route('/')
 def index():
+    practico = get_practico()
     posts = get_posts()
-    return render_template('index.html', posts=posts, active_post=None)
+    return render_template('index.html', posts=posts, active_post=None, practico=practico)
 
 
 @app.route('/post/<slug>')
 def post(slug):
     posts = get_posts()
-    active_post = next((post for post in posts if post['slug'] == slug), None)
-    return render_template('index.html', posts=posts, active_post=active_post)
+    practico = get_practico()
+    entries = posts + practico
+    active_post = next((e for e in entries if e['slug'] == slug), None)
+    return render_template('index.html', posts=posts, active_post=active_post, practico=practico)
 
 
 @app.route('/update_posts', methods=['POST'])
